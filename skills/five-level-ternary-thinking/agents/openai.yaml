@@ -1,0 +1,15 @@
+interface:
+  display_name: 五层三叉思考模型
+  short_description: 用通俗语言生成带编号、详解和例子的五层三叉交互思维图
+  default_prompt: Use $five-level-ternary-thinking to analyze this question as a numbered
+    interactive five-level ternary HTML tree with plain explanations and relatable
+    examples.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  allow_implicit_invocation: true
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas

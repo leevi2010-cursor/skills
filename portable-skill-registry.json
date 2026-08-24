@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "skills": [
+    {
+      "name": "five-level-ternary-thinking",
+      "source": "skills/five-level-ternary-thinking",
+      "install_target": "~/.codex/skills/five-level-ternary-thinking",
+      "authority_note": "public-github-skills",
+      "required_for": [
+        "五层三叉思考模型",
+        "five-level ternary reasoning tree",
+        "interactive numbered learning map"
+      ]
+    }
+  ]
+}
