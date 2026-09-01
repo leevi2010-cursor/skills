@@ -1,0 +1,4 @@
+interface:
+  display_name: "私享国际销售录音分析"
+  short_description: "从逐字稿、录音或飞书妙记生成销售五环节复盘并归档飞书"
+  default_prompt: "分析这份私享国际销售录音，确认客户和销售身份后生成五环节销售复盘，并归档到指定飞书目录。"

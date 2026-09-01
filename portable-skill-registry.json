@@ -11,6 +11,17 @@
         "five-level ternary reasoning tree",
         "interactive numbered learning map"
       ]
+    },
+    {
+      "name": "analyze-showroom-sales-recording",
+      "source": "skills/analyze-showroom-sales-recording",
+      "install_target": "~/.codex/skills/analyze-showroom-sales-recording",
+      "authority_note": "public-github-skills",
+      "required_for": [
+        "showroom sales recording analysis",
+        "飞书妙记销售复盘",
+        "客户接待五环节分析"
+      ]
     }
   ]
 }

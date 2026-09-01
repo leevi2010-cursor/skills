@@ -7,6 +7,7 @@ Leo 创建并公开分发的 AI Skills 集合。仓库中的 Skill 包是公开�
 | Skill | 用途 | 目录 |
 | --- | --- | --- |
 | `five-level-ternary-thinking` | 用“五层三叉”分析“是什么、为什么、怎么办”，生成 364 个带稳定编号、详解和例子的节点，并渲染为交互 HTML | [`skills/five-level-ternary-thinking/`](skills/five-level-ternary-thinking/) |
+| `analyze-showroom-sales-recording` | 从销售逐字稿、录音或飞书妙记生成五环节复盘；必须明确客户称呼和销售姓名 | [`skills/analyze-showroom-sales-recording/`](skills/analyze-showroom-sales-recording/) |
 
 ## 在另一台电脑安装
 
@@ -21,6 +22,15 @@ python3 portable_skill_manager.py check five-level-ternary-thinking
 ```
 
 Windows 可将 `python3` 换成 `py`。默认安装到 `~/.codex/skills/five-level-ternary-thinking/`。如果当前 Codex 尚未显示该 Skill，请重开任务或重启 Codex，让它重新发现 Skill。
+
+安装销售录音分析 Skill：
+
+```bash
+python3 portable_skill_manager.py install analyze-showroom-sales-recording
+python3 portable_skill_manager.py check analyze-showroom-sales-recording
+```
+
+该 Skill 不包含租户、客户或本机路径。使用前请在本机设置 `SHOWROOM_PROJECT_ROOT`、`SHOWROOM_LARK_PARENT_TOKEN`、`SHOWROOM_LARK_PROFILE`、`SHOWROOM_LARK_BASE_URL` 和 `SHOWROOM_PRIVATE_EVIDENCE_ROOT`；客群维度与销售复盘文件路径为可选配置。
 
 ## 更新已安装 Skill
 
