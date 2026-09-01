@@ -41,7 +41,7 @@ mlx_whisper <relative-audio-path> \
 ```bash
 env -u HERMES_HOME lark-cli minutes +detail \
   --minute-tokens <token> --transcript --output-dir <relative-private-dir> \
-  --profile "$SHOWROOM_LARK_PROFILE" --as user
+  --profile "$SHOWROOM_LARK_PROFILE" --as bot
 ```
 
 4. 再下载原录音：
@@ -49,7 +49,7 @@ env -u HERMES_HOME lark-cli minutes +detail \
 ```bash
 env -u HERMES_HOME lark-cli minutes +download \
   --minute-tokens <token> --output-dir <relative-private-dir> \
-  --profile "$SHOWROOM_LARK_PROFILE" --as user
+  --profile "$SHOWROOM_LARK_PROFILE" --as bot
 ```
 
 5. 分析必须基于逐字稿，不照搬飞书 AI 总结。

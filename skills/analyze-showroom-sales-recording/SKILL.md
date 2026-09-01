@@ -84,7 +84,7 @@ description: 分析私享国际家具展厅的销售录音、录音逐字稿或�
 
 ```bash
 env -u HERMES_HOME lark-cli <service> <command> \
-  --profile "$SHOWROOM_LARK_PROFILE" --as user
+  --profile "$SHOWROOM_LARK_PROFILE" --as bot
 ```
 
 飞书具体参数以执行时读取的 `lark-minutes`、`lark-doc`、`lark-wiki` Skill 和命令帮助为准，不凭记忆拼参数。
