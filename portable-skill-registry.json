@@ -22,6 +22,17 @@
         "飞书妙记销售复盘",
         "客户接待五环节分析"
       ]
+    },
+    {
+      "name": "write-showroom-acquisition-video-script",
+      "source": "skills/write-showroom-acquisition-video-script",
+      "install_target": "~/.codex/skills/write-showroom-acquisition-video-script",
+      "authority_note": "public-github-skills",
+      "required_for": [
+        "家具展厅到店获客信息流视频脚本",
+        "已审核选题脚本",
+        "低搬动成本镜头规划"
+      ]
     }
   ]
 }

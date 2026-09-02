@@ -1,0 +1,6 @@
+interface:
+  display_name: "家具展厅咨询视频脚本"
+  short_description: "把已人工审核的展厅选题写成低搬动成本的咨询视频候选脚本"
+  default_prompt: "Use $write-showroom-acquisition-video-script to turn this human-approved furniture-showroom topic into a low-move, production-feasible consultation video script candidate."
+policy:
+  allow_implicit_invocation: true
