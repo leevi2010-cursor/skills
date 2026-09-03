@@ -32,7 +32,7 @@ python3 portable_skill_manager.py install analyze-showroom-sales-recording
 python3 portable_skill_manager.py check analyze-showroom-sales-recording
 ```
 
-该 Skill 不包含租户、客户或本机路径。使用前请在本机设置 `SHOWROOM_PROJECT_ROOT`、`SHOWROOM_LARK_PARENT_TOKEN`、`SHOWROOM_LARK_PROFILE`、`SHOWROOM_LARK_ACTOR`、`SHOWROOM_LARK_BASE_URL`、`SHOWROOM_CUSTOMER_BASE_URL`、`SHOWROOM_CUSTOMER_TABLE` 和 `SHOWROOM_PRIVATE_EVIDENCE_ROOT`；客群维度与销售复盘文件路径为可选配置。客户资料更新只修改唯一匹配的已有记录，不会自动新建客户，也不会覆盖有冲突的旧值。
+该 Skill 不包含租户、客户或本机路径。使用前请在本机设置 `SHOWROOM_PROJECT_ROOT`、`SHOWROOM_LARK_PARENT_TOKEN`、`SHOWROOM_LARK_PROFILE`、`SHOWROOM_LARK_ACTOR`、`SHOWROOM_LARK_BASE_URL`、`SHOWROOM_CUSTOMER_BASE_URL`、`SHOWROOM_CUSTOMER_TABLE` 和 `SHOWROOM_PRIVATE_EVIDENCE_ROOT`；客群维度与销售复盘文件路径为可选配置。客户资料写入会先查重：唯一匹配时更新原记录，确认没有对应记录且身份资料足够时自动新建，存在多个候选或旧值冲突时停止并请人工确认。
 
 安装 Second Brain Digest Skill：
 
