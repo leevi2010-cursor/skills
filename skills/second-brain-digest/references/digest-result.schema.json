@@ -1,0 +1,325 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.second-brain/schemas/digest-result-v1.json",
+  "title": "Second Brain Digest Result v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "batch_id",
+    "source_ids",
+    "read_set",
+    "object_changes",
+    "relationship_changes",
+    "event_changes",
+    "no_change",
+    "concept_convergence",
+    "conflicts",
+    "residue"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "batch_id": {"type": "string", "minLength": 1},
+    "source_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^src_[a-f0-9]{24}$"}
+    },
+    "read_set": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/read_item"}
+    },
+    "object_changes": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/object_change"}
+    },
+    "relationship_changes": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/relationship_change"}
+    },
+    "event_changes": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/event_change"}
+    },
+    "no_change": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["reason", "evidence_refs"],
+        "properties": {
+          "reason": {"type": "string", "minLength": 1},
+          "evidence_refs": {"$ref": "#/$defs/evidence_refs"}
+        }
+      }
+    },
+    "concept_convergence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["term", "disposition", "reason", "evidence_refs"],
+        "properties": {
+          "term": {"type": "string", "minLength": 1},
+          "disposition": {
+            "enum": ["reuse_canonical", "add_alias", "keep_distinct", "candidate", "decision_required"]
+          },
+          "canonical_ref": {"type": ["string", "null"]},
+          "reason": {"type": "string", "minLength": 1},
+          "evidence_refs": {"$ref": "#/$defs/evidence_refs"}
+        }
+      }
+    },
+    "conflicts": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/exception_item"}
+    },
+    "residue": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/exception_item"}
+    },
+    "method_candidates": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/method_candidate"}
+    }
+  },
+  "$defs": {
+    "evidence_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_id", "source_path", "sha256", "locator"],
+      "properties": {
+        "source_id": {"type": "string", "pattern": "^src_[a-f0-9]{24}$"},
+        "source_path": {"type": "string", "pattern": "^evidence/sources/"},
+        "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "locator": {"type": "string", "minLength": 1},
+        "excerpt": {"type": "string", "maxLength": 500}
+      }
+    },
+    "evidence_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/evidence_ref"}
+    },
+    "read_item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["note_path", "sha256"],
+      "properties": {
+        "note_path": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      }
+    },
+    "state_update": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dimension", "value", "as_of", "evidence_refs"],
+      "properties": {
+        "dimension": {"type": "string", "minLength": 1},
+        "value": {"type": "string", "minLength": 1},
+        "as_of": {"type": ["string", "null"]},
+        "evidence_refs": {"$ref": "#/$defs/evidence_refs"}
+      }
+    },
+    "object_change": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "action",
+        "canonical_name",
+        "aliases",
+        "roles",
+        "state_updates",
+        "reason",
+        "evidence_refs",
+        "unknowns"
+      ],
+      "properties": {
+        "action": {"enum": ["update_existing", "create_candidate", "no_change", "review"]},
+        "note_path": {"type": ["string", "null"]},
+        "canonical_name": {"type": "string", "minLength": 1},
+        "aliases": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "roles": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"enum": ["person", "company", "brand", "project", "business_line", "event", "goal", "decision"]}
+        },
+        "state_updates": {"type": "array", "items": {"$ref": "#/$defs/state_update"}},
+        "ideology_updates": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/ideology_update"}
+        },
+        "reason": {"type": "string", "minLength": 1},
+        "evidence_refs": {"$ref": "#/$defs/evidence_refs"},
+        "unknowns": {"type": "array", "items": {"type": "string"}}
+      },
+      "allOf": [
+        {
+          "if": {"required": ["ideology_updates"]},
+          "then": {
+            "required": ["note_path"],
+            "properties": {
+              "action": {"const": "update_existing"},
+              "note_path": {"type": "string", "minLength": 1},
+              "roles": {"contains": {"const": "person"}}
+            }
+          }
+        }
+      ]
+    },
+    "relationship_change": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["action", "from_ref", "relation", "to_ref", "status", "reason", "evidence_refs"],
+      "properties": {
+        "action": {"enum": ["add", "update", "no_change", "review"]},
+        "from_ref": {"type": "string", "minLength": 1},
+        "relation": {"enum": ["part_of", "member_of", "responsible_for", "depends_on", "related_to"]},
+        "to_ref": {"type": "string", "minLength": 1},
+        "status": {"enum": ["confirmed", "candidate", "disputed"]},
+        "reason": {"type": "string", "minLength": 1},
+        "evidence_refs": {"$ref": "#/$defs/evidence_refs"}
+      }
+    },
+    "event_change": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["action", "name", "participants", "time", "state", "summary", "evidence_refs", "unknowns"],
+      "properties": {
+        "action": {"enum": ["add", "update", "no_change", "review"]},
+        "event_ref": {"type": ["string", "null"]},
+        "name": {"type": "string", "minLength": 1},
+        "participants": {"type": "array", "items": {"type": "string"}},
+        "time": {"type": ["string", "null"]},
+        "state": {"enum": ["planned", "ongoing", "completed", "cancelled", "blocked", "disputed", "unknown"]},
+        "summary": {"type": "string", "minLength": 1},
+        "evidence_refs": {"$ref": "#/$defs/evidence_refs"},
+        "unknowns": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "exception_item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["summary", "impact", "evidence_refs"],
+      "properties": {
+        "summary": {"type": "string", "minLength": 1},
+        "impact": {"type": "string", "minLength": 1},
+        "evidence_refs": {"$ref": "#/$defs/evidence_refs"}
+      }
+    },
+    "ideology_update": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "operation",
+        "dimension",
+        "statement",
+        "basis",
+        "confidence",
+        "as_of",
+        "decision_relevance",
+        "counterevidence",
+        "evidence_refs",
+        "unknowns"
+      ],
+      "properties": {
+        "operation": {"enum": ["upsert", "retract"]},
+        "dimension": {"enum": ["worldview", "life_view", "values"]},
+        "statement": {"type": "string", "minLength": 1},
+        "basis": {"enum": ["direct", "inferred"]},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "as_of": {"type": ["string", "null"]},
+        "decision_relevance": {"type": "string", "minLength": 1},
+        "counterevidence": {"type": "array", "items": {"type": "string"}},
+        "evidence_refs": {"$ref": "#/$defs/evidence_refs"},
+        "unknowns": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "method_candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "action",
+        "note_path",
+        "name",
+        "domain",
+        "status",
+        "trigger",
+        "decision_rule",
+        "expected_output",
+        "applicability_scope",
+        "counterexamples",
+        "validation_status",
+        "validation_evidence_refs",
+        "reason",
+        "evidence_refs",
+        "unknowns"
+      ],
+      "properties": {
+        "action": {"enum": ["create_candidate", "update_existing", "no_change", "review"]},
+        "note_path": {"type": ["string", "null"]},
+        "name": {"type": "string", "minLength": 1},
+        "domain": {"type": "string", "minLength": 1},
+        "status": {"enum": ["candidate", "draft", "validated", "disputed"]},
+        "trigger": {"type": "string", "minLength": 1},
+        "decision_rule": {"type": "string", "minLength": 1},
+        "expected_output": {"type": "string", "minLength": 1},
+        "applicability_scope": {"type": "string", "minLength": 1},
+        "counterexamples": {"type": "array", "items": {"type": "string"}},
+        "validation_status": {
+          "enum": ["untested", "single_case", "multi_case", "feedback_validated", "disputed"]
+        },
+        "validation_evidence_refs": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/evidence_ref"}
+        },
+        "reason": {"type": "string", "minLength": 1},
+        "evidence_refs": {"$ref": "#/$defs/evidence_refs"},
+        "unknowns": {"type": "array", "items": {"type": "string"}}
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "action": {"enum": ["create_candidate", "update_existing"]}
+            },
+            "required": ["action"]
+          },
+          "then": {
+            "properties": {
+              "note_path": {"type": "string", "minLength": 1}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "validation_status": {"enum": ["single_case", "multi_case", "feedback_validated", "disputed"]}
+            },
+            "required": ["validation_status"]
+          },
+          "then": {
+            "properties": {
+              "validation_evidence_refs": {"minItems": 1}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {"const": "validated"}
+            },
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {
+              "validation_status": {"enum": ["multi_case", "feedback_validated"]}
+            }
+          }
+        }
+      ]
+    }
+  }
+}

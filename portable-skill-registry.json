@@ -13,6 +13,18 @@
       ]
     },
     {
+      "name": "second-brain-digest",
+      "source": "skills/second-brain-digest",
+      "install_target": "~/.codex/skills/second-brain-digest",
+      "authority_note": "public-github-skills",
+      "required_for": [
+        "governed evidence intake",
+        "source-backed knowledge digestion",
+        "duplicate-note convergence",
+        "resumable semantic batches"
+      ]
+    },
+    {
       "name": "analyze-showroom-sales-recording",
       "source": "skills/analyze-showroom-sales-recording",
       "install_target": "~/.codex/skills/analyze-showroom-sales-recording",
