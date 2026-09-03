@@ -8,7 +8,7 @@ Leo 创建并公开分发的 AI Skills 集合。仓库中的 Skill 包是公开�
 | --- | --- | --- |
 | `five-level-ternary-thinking` | 用“五层三叉”分析“是什么、为什么、怎么办”，生成 364 个带稳定编号、详解和例子的节点，并渲染为交互 HTML | [`skills/five-level-ternary-thinking/`](skills/five-level-ternary-thinking/) |
 | `second-brain-digest` | 将获授权的本机资料归档为可校验 Source，并收敛为最少、可追溯的知识更新 | [`skills/second-brain-digest/`](skills/second-brain-digest/) |
-| `analyze-showroom-sales-recording` | 从销售逐字稿、录音或飞书妙记生成五环节复盘，并把已确认信息补充到唯一匹配的已有客户记录 | [`skills/analyze-showroom-sales-recording/`](skills/analyze-showroom-sales-recording/) |
+| `analyze-showroom-sales-recording` | 从销售逐字稿、录音或飞书妙记生成五环节复盘；查重后更新唯一客户记录，确认没有对应记录时自动新建 | [`skills/analyze-showroom-sales-recording/`](skills/analyze-showroom-sales-recording/) |
 | `write-showroom-acquisition-video-script` | 把已由人审核通过的家具展厅选题写成低搬动成本的咨询视频候选脚本 | [`skills/write-showroom-acquisition-video-script/`](skills/write-showroom-acquisition-video-script/) |
 
 ## 在另一台电脑安装

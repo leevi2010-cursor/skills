@@ -1,4 +1,4 @@
 interface:
   display_name: "私享国际销售录音分析"
-  short_description: "分析展厅销售录音，生成五环节复盘，并安全更新已有客户记录"
-  default_prompt: "使用 $analyze-showroom-sales-recording 分析这份录音，归档五环节复盘，并把已确认信息补充到已有客户记录。"
+  short_description: "分析展厅销售录音，生成五环节复盘并查重写入客户资料"
+  default_prompt: "使用 $analyze-showroom-sales-recording 分析这份录音，归档五环节复盘；先查重，有唯一记录就更新，确认没有对应记录时自动新建。"
