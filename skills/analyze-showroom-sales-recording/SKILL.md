@@ -1,11 +1,11 @@
 ---
 name: analyze-showroom-sales-recording
-description: 分析私享国际家具展厅的销售录音、录音逐字稿或飞书妙记，确认客户与销售身份后生成五环节销售复盘，并把每份录音作为一个子文档归档到指定飞书目录。用户要求分析客户接待、销售表现、建议话术或录音复盘时使用。
+description: 分析家具展厅的销售录音、录音逐字稿或飞书妙记，确认客户与销售身份后生成五环节销售复盘，归档飞书，并把有证据的信息补充到唯一匹配的已有客户记录。用户要求分析客户接待、销售表现、建议话术或录音复盘时使用。
 ---
 
 # 私享国际销售录音分析
 
-把一份销售录音变成一份有证据、可复核、可执行的销售分析报告。不要建立新的客户事实库，也不要把 AI 判断写成客户事实。
+把一份销售录音变成一份有证据、可复核、可执行的销售分析报告，再把已经确认的客户信息填回原客户记录。不要建立新的客户事实库，也不要把 AI 判断写成客户事实。
 
 ## 运行配置
 
@@ -16,10 +16,15 @@ description: 分析私享国际家具展厅的销售录音、录音逐字稿或�
 - `SHOWROOM_SALES_REVIEW_ISSUE`：销售复盘事项文件；可选。
 - `SHOWROOM_LARK_PARENT_TOKEN`：报告归档的飞书知识库父节点 token。
 - `SHOWROOM_LARK_PROFILE`：经过授权的 `lark-cli` profile。
+- `SHOWROOM_LARK_ACTOR`：项目规则允许的飞书身份，只能是 `user` 或 `bot`。
 - `SHOWROOM_LARK_BASE_URL`：飞书租户基础地址，例如 `https://example.feishu.cn`。
+- `SHOWROOM_CUSTOMER_BASE_URL`：现有客户资料表的完整飞书 Base 或 Wiki 链接。
+- `SHOWROOM_CUSTOMER_TABLE`：客户资料表的真实表 ID 或准确表名。
 - `SHOWROOM_PRIVATE_EVIDENCE_ROOT`：原录音和逐字稿的私密工作目录。
 
-执行前检查必需变量，并读取项目根目录最近的 `AGENTS.md`。需要飞书归档时，`SHOWROOM_LARK_PARENT_TOKEN`、`SHOWROOM_LARK_PROFILE` 和 `SHOWROOM_LARK_BASE_URL` 缺一不可；缺失时停止外部写入并告诉用户要补什么。项目规则禁止修改的方法目录继续只读。
+执行前检查必需变量，并读取项目根目录最近的 `AGENTS.md`。需要飞书归档或更新客户资料时，`SHOWROOM_LARK_PROFILE`、`SHOWROOM_LARK_ACTOR` 和 `SHOWROOM_LARK_BASE_URL` 缺一不可；归档还需要 `SHOWROOM_LARK_PARENT_TOKEN`，更新客户资料还需要 `SHOWROOM_CUSTOMER_BASE_URL` 和 `SHOWROOM_CUSTOMER_TABLE`。缺失时停止相应的外部写入并告诉用户要补什么。飞书身份必须符合项目 `AGENTS.md`，不能在失败后自行切换。项目规则禁止修改的方法目录继续只读。
+
+更新客户资料时还要读取 `lark-base` Skill 和 [客户资料更新规则](references/customer-base-update.md)。
 
 ## 输入路由
 
@@ -84,10 +89,24 @@ description: 分析私享国际家具展厅的销售录音、录音逐字稿或�
 
 ```bash
 env -u HERMES_HOME lark-cli <service> <command> \
-  --profile "$SHOWROOM_LARK_PROFILE" --as bot
+  --profile "$SHOWROOM_LARK_PROFILE" --as "$SHOWROOM_LARK_ACTOR"
 ```
 
 飞书具体参数以执行时读取的 `lark-minutes`、`lark-doc`、`lark-wiki` Skill 和命令帮助为准，不凭记忆拼参数。
+
+## 更新客户资料
+
+用户要求使用本 Skill 分析录音时，同时授权把录音中已经确认的信息补充到已配置的现有客户资料表。授权只包括更新唯一匹配的现有客户记录，不包括新建客户、增加或删除表格与字段、删除记录、修改权限，也不包括覆盖有冲突的旧值。
+
+正式报告归档成功后，按照 [客户资料更新规则](references/customer-base-update.md) 执行：
+
+1. 从 `SHOWROOM_CUSTOMER_BASE_URL` 取得真实 `base_token`，再读取 `SHOWROOM_CUSTOMER_TABLE` 和字段；不能把 Wiki token 当成 `base_token`。
+2. 先找到唯一的现有客户记录。只有姓名相同不能证明是同一个客户。
+3. 读取当前记录，逐个比较新旧值。只写录音直接证明、且字段允许写入的内容。
+4. 使用带 `--record-id` 的 `base +record-upsert` 更新；永远不能省略 `--record-id`，因为省略后会新建一条记录。
+5. 更新后用 `base +record-get` 读回，并检查记录 ID 和实际写入值。没有读回成功，不能报告客户资料已更新。
+
+找不到客户、找到多条候选、旧值冲突、字段不存在、字段选项不兼容或权限不足时，保留分析报告并停止客户表更新。告诉用户缺什么，不猜客户、不新增客户，也不改用另一身份或租户。
 
 ## 失败处理
 
@@ -95,6 +114,9 @@ env -u HERMES_HOME lark-cli <service> <command> \
 - 妙记无权限：报告权限问题；未经用户明确要求，不自动申请权限。
 - 依赖安装失败：保留原文件，报告缺少的工具和最小补救动作，不改系统配置。
 - 飞书写入失败：保留本地私密报告，不改投其他租户，也不把本地文件假装成飞书交付。
+- 客户记录无法唯一匹配：列出不含联系方式的候选摘要，请用户指定原记录；不得新建记录。
+- 客户资料已有不同值：保留旧值，不覆盖；列出字段名、两边来源和需要谁确认。
+- 飞书返回 `91403` 或明确的无权限错误：停止重试，报告当前身份需要获得目标表编辑权限。
 
 ## 完成标准
 
@@ -104,4 +126,6 @@ env -u HERMES_HOME lark-cli <service> <command> \
 - 所有建议能回到逐字稿时间点。
 - 每个实际下一步都有负责人、时间和完成标准。
 - 飞书子文档写入并读回成功。
+- 唯一客户记录已经更新并读回；或者明确报告了无法更新的具体原因和最小补齐动作。
+- 客户资料表没有新增客户记录，没有删除表、字段或记录。
 - 原录音、完整逐字稿和客户联系方式没有进入普通 Git 仓库。

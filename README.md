@@ -8,7 +8,7 @@ Leo 创建并公开分发的 AI Skills 集合。仓库中的 Skill 包是公开�
 | --- | --- | --- |
 | `five-level-ternary-thinking` | 用“五层三叉”分析“是什么、为什么、怎么办”，生成 364 个带稳定编号、详解和例子的节点，并渲染为交互 HTML | [`skills/five-level-ternary-thinking/`](skills/five-level-ternary-thinking/) |
 | `second-brain-digest` | 将获授权的本机资料归档为可校验 Source，并收敛为最少、可追溯的知识更新 | [`skills/second-brain-digest/`](skills/second-brain-digest/) |
-| `analyze-showroom-sales-recording` | 从销售逐字稿、录音或飞书妙记生成五环节复盘；必须明确客户称呼和销售姓名 | [`skills/analyze-showroom-sales-recording/`](skills/analyze-showroom-sales-recording/) |
+| `analyze-showroom-sales-recording` | 从销售逐字稿、录音或飞书妙记生成五环节复盘，并把已确认信息补充到唯一匹配的已有客户记录 | [`skills/analyze-showroom-sales-recording/`](skills/analyze-showroom-sales-recording/) |
 | `write-showroom-acquisition-video-script` | 把已由人审核通过的家具展厅选题写成低搬动成本的咨询视频候选脚本 | [`skills/write-showroom-acquisition-video-script/`](skills/write-showroom-acquisition-video-script/) |
 
 ## 在另一台电脑安装
@@ -32,7 +32,7 @@ python3 portable_skill_manager.py install analyze-showroom-sales-recording
 python3 portable_skill_manager.py check analyze-showroom-sales-recording
 ```
 
-该 Skill 不包含租户、客户或本机路径。使用前请在本机设置 `SHOWROOM_PROJECT_ROOT`、`SHOWROOM_LARK_PARENT_TOKEN`、`SHOWROOM_LARK_PROFILE`、`SHOWROOM_LARK_BASE_URL` 和 `SHOWROOM_PRIVATE_EVIDENCE_ROOT`；客群维度与销售复盘文件路径为可选配置。
+该 Skill 不包含租户、客户或本机路径。使用前请在本机设置 `SHOWROOM_PROJECT_ROOT`、`SHOWROOM_LARK_PARENT_TOKEN`、`SHOWROOM_LARK_PROFILE`、`SHOWROOM_LARK_ACTOR`、`SHOWROOM_LARK_BASE_URL`、`SHOWROOM_CUSTOMER_BASE_URL`、`SHOWROOM_CUSTOMER_TABLE` 和 `SHOWROOM_PRIVATE_EVIDENCE_ROOT`；客群维度与销售复盘文件路径为可选配置。客户资料更新只修改唯一匹配的已有记录，不会自动新建客户，也不会覆盖有冲突的旧值。
 
 安装 Second Brain Digest Skill：
 
