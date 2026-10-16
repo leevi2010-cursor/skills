@@ -18,7 +18,7 @@
 ## 本地录音
 
 1. 计算 SHA-256，并读取时长、声道和格式。
-2. 运行 `scripts/ensure_local_transcription.sh`。脚本只在缺失时安装当前 Apple Silicon 环境需要的 `ffmpeg` 和 `mlx-whisper`，不使用 `sudo`。
+2. 相对本 Skill 目录定位脚本，先运行 `scripts/ensure_local_transcription.sh --check`，只检查当前 Apple Silicon 环境的 `ffmpeg` 和 `mlx-whisper`。缺少工具时报告缺项，只有用户已授权安装时才运行旧的无参数命令；无参数命令会联网安装缺失依赖，不使用 `sudo`。
 3. 用 `ffmpeg -i` 检查文件能否读取。
 4. 在私密工作目录执行：
 

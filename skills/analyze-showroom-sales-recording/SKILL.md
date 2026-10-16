@@ -36,7 +36,7 @@ description: 分析家具展厅的销售录音、逐字稿或飞书妙记，生�
 先判断输入属于哪一种，再读取 [输入处理](references/input-routing.md)：
 
 1. **录音逐字稿**：直接使用原文。保留说话人、时间点和来源。
-2. **本地录音源文件**：在本机转写，不把原音频上传到第三方。先运行 `scripts/ensure_local_transcription.sh`；再用 `ffmpeg` 检查音频，用 `mlx_whisper` 生成带时间点的 JSON 和文字稿。
+2. **本地录音源文件**：在本机转写，不把原音频上传到第三方。相对本 `SKILL.md` 定位脚本，先运行 `scripts/ensure_local_transcription.sh --check`；缺少依赖时报告缺项，只有用户已授权安装时才运行旧的无参数安装命令。依赖齐全后用 `ffmpeg` 检查音频，用 `mlx_whisper` 生成带时间点的 JSON 和文字稿。
 3. **飞书妙记链接**：先用 `lark-minutes +detail --transcript` 下载逐字稿，再用 `lark-minutes +download` 下载原录音。分析基于逐字稿，原录音只用于抽查听不清、数字、产品名和关键承诺。
 
 如果输入不是家具展厅销售或客户接待录音，说明判断依据并停止，不套用本 Skill。

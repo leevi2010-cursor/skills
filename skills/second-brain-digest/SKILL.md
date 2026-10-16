@@ -57,6 +57,8 @@ Do not convert a repeated mention into a new object, co-occurrence into a relati
 
 ## Commands
 
+Run these commands from this Skill's directory, or replace each `scripts/...` with the absolute path to that script in the installed Skill. The vault and Source paths remain explicit; do not assume the current directory is the vault.
+
 Create a no-move intake plan:
 
 ```bash

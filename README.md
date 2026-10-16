@@ -1,83 +1,87 @@
-# Leo's Skills
+# Leo's Skills · 团队入口
 
-Leo 创建并公开分发的 AI Skills 集合。仓库中的 Skill 包是公开分发源；各电脑上的 `~/.codex/skills/` 只是安装副本。
+这里集中说明团队与 Agent 共同遵循什么、遇到什么任务再安装哪些 Skill，以及怎样保留本机规则并安全更新。先读共同原则，工作方法按场景使用，Skill 按需安装。
 
-## 通用工作方法
+`portable-skill-registry.json` 是唯一分发目录；下面的目录由它生成。GitHub 中已发布的 commit 是同步来源，各电脑上的安装副本是使用副本。安装某个 Skill 不代表取得其所有外部操作的授权，仍须遵循任务和项目规则。
 
-- [表达原则与决策闭环](docs/work-methods/README.md)：已定稿的通用文档和空白模板。
-- [其他电脑的 Codex 同步提示词](docs/work-methods/sync-prompt.md)：只同步文档与全局指引，不运行 Skill 安装器。
+<a id="通用工作方法"></a>
 
-## 已收录 Skills
+## 先选需要的内容
 
-| Skill | 用途 | 目录 |
+<!-- BEGIN REGISTRY CATALOG -->
+
+| 类型 | 内容与版本 | 什么时候用 |
 | --- | --- | --- |
-| `five-level-ternary-thinking` | 用“五层三叉”分析“是什么、为什么、怎么办”，生成 364 个带稳定编号、详解和例子的节点，并渲染为交互 HTML | [`skills/five-level-ternary-thinking/`](skills/five-level-ternary-thinking/) |
-| `second-brain-digest` | 将获授权的本机资料归档为可校验 Source，并收敛为最少、可追溯的知识更新 | [`skills/second-brain-digest/`](skills/second-brain-digest/) |
-| `analyze-showroom-sales-recording` | 从销售录音生成独立的完整五环节复盘，并把客户事实按字段查重后更新或新建到客户资料表 | [`skills/analyze-showroom-sales-recording/`](skills/analyze-showroom-sales-recording/) |
-| `write-showroom-acquisition-video-script` | 把已由人审核通过的家具展厅选题写成低搬动成本的咨询视频候选脚本 | [`skills/write-showroom-acquisition-video-script/`](skills/write-showroom-acquisition-video-script/) |
+| 共同原则 | [表达原则](docs/work-methods/expression-principles.md) · v1.2 | 团队和 Agent 写给人看的说明、报告与建议时共同遵循。 |
+| 工作方法 | [决策闭环](docs/work-methods/decision-loop.md) · v1.5 | 需要作决定、比较办法或复盘结果时使用；目标与授权仍以原处为准。 |
+| 同步说明 | [跨电脑同步提示词](docs/work-methods/sync-prompt.md) · 随仓库 commit | 需要将两份文档接入另一台电脑的 Codex 全局指引时使用。 |
+
+<a id="已收录-skills"></a>
+
+以下 Skill 都按需安装。它们尚未单独编号，以固定 commit 和目录 SHA-256 识别版本；`list` 可查看校验值。
+
+| Skill | 用途与适用情况 | 必要前提 |
+| --- | --- | --- |
+| [`five-level-ternary-thinking`](skills/five-level-ternary-thinking/SKILL.md) | 把复杂问题拆成五层三叉思考树，生成可交互的编号图。 需要系统分析“是什么、为什么、怎么办”；简单查询或只要短文本时不必安装。 | Python 3.10+、实际可写的输出目录，以及能打开 HTML 的环境。 |
+| [`second-brain-digest`](skills/second-brain-digest/SKILL.md) | 把获授权的本地资料归档为可追溯来源，并更新最少的知识记录。 需要整理自己的知识库、消化资料或合并重复笔记。 | 明确设置 SECOND_BRAIN_ROOT，并先读该知识库根目录的 .AGENTS.md。<br>归档移动须有对应范围和计划的授权；特殊格式转换工具按需另配。<br>建议环境已有 jsonschema 以作完整模式校验；缺失时脚本退回内置合同检查。本仓库安装器不会安装它。 |
+| [`analyze-showroom-sales-recording`](skills/analyze-showroom-sales-recording/SKILL.md) | 从家具接待录音生成独立五环节复盘，另把客户事实查重后写入客户表。 处理家具展厅销售录音、逐字稿或飞书妙记；需要确认客户、销售和说话人。 | 先配置项目规则和私密目录；SHOWROOM_* 配置详见 SKILL.md 的“运行配置”。<br>飞书操作需要另备 lark-cli、lark-minutes/lark-doc/lark-wiki/lark-base Skills，以及获授权的身份和目标；本仓库不提供这些依赖。<br>本地音频转写脚本使用 Apple Silicon 的 MLX 路线；其他机器可提供已有逐字稿。从该 Skill 目录先运行 scripts/ensure_local_transcription.sh --check 检查；旧的无参数命令会联网安装依赖，只有获准安装时才运行。 |
+| [`write-showroom-acquisition-video-script`](skills/write-showroom-acquisition-video-script/SKILL.md) | 把人工审核通过的具体展厅选题写成低搬动成本的视频脚本候选。 选题和审核人已经明确，需要逐镜脚本与制作难度检查。 | 先取得具体选题的人工通过结论；产品、素材和咨询承接信息按实际提供。<br>Python 3.10+ 运行自带验证器；拍摄、发布、投放分别按原授权执行。 |
+
+<!-- END REGISTRY CATALOG -->
+
+## 让自己的 Agent 达成共识
+
+把这段话交给 Agent 即可开始，文档无需安装成 Skill：
+
+> 请读取这个仓库的 README 和注册表，记录实际 commit。先完整读表达原则 v1.2；遇到决策或复盘时再读决策闭环 v1.5，并按其适用范围执行。根据当前任务选择需要的 Skill，先说明前提和安装计划。不自动安装全部 Skill，不覆盖本机自定义规则；遇到不明冲突先列出冲突。
+
+这段说明只约定本次读取。需要跨会话或跨电脑保留指引时，使用[原同步提示词](docs/work-methods/sync-prompt.md)：它先识别实际 `CODEX_HOME`、`AGENTS.override.md` 和项目覆盖规则，备份后只合并有标记的管理段，保留其他规则并读回。仓库安装器只管理 Skill，**不会复制原则文档，也不会改全局 `AGENTS.md`**。其他电脑和已打开的会话需要各自读取更新。
 
 ## 在另一台电脑安装
 
-需要 Git 与 Python 3。
+需要 Git、Python 3.10+。下例选择一个 Skill，名称可换成上表中的任意一项；Windows 可将 `python3` 换成 `py`。
 
 ```bash
 git clone https://github.com/leevi2010-cursor/skills.git
 cd skills
+python3 portable_skill_manager.py validate
+python3 portable_skill_manager.py list
 python3 portable_skill_manager.py check five-level-ternary-thinking
+python3 portable_skill_manager.py install five-level-ternary-thinking --dry-run
 python3 portable_skill_manager.py install five-level-ternary-thinking
 python3 portable_skill_manager.py check five-level-ternary-thinking
 ```
 
-Windows 可将 `python3` 换成 `py`。默认安装到 `~/.codex/skills/five-level-ternary-thinking/`。如果当前 Codex 尚未显示该 Skill，请重开任务或重启 Codex，让它重新发现 Skill。
+`check` 返回 2 表示还没安装、存在差异或需要处理；先看 JSON 中的具体状态。`--dry-run` 遇到待安装或有差异时也返回 2，只报告计划，尚未执行。默认安装到当前 `CODEX_HOME/skills/<名称>/`，未设置 `CODEX_HOME` 时使用 `~/.codex/skills/<名称>/`。`list` 和 `--dry-run` 会列出实际目标，先核对再安装；其他运行环境可用 `--skills-dir` 指定其**绝对 Skill 根目录**。符号链接路径会被拒绝，须先核实实际目录，不能靠强制替换绕过。安装器不会安装 Python 包、转写工具或飞书工具。
 
-安装销售录音分析 Skill：
-
-```bash
-python3 portable_skill_manager.py install analyze-showroom-sales-recording
-python3 portable_skill_manager.py check analyze-showroom-sales-recording
-```
-
-该 Skill 不包含租户、客户或本机路径。使用前请在本机设置 `SHOWROOM_PROJECT_ROOT`、`SHOWROOM_LARK_PARENT_TOKEN`、`SHOWROOM_LARK_PROFILE`、`SHOWROOM_LARK_ACTOR`、`SHOWROOM_LARK_BASE_URL`、`SHOWROOM_CUSTOMER_BASE_URL`、`SHOWROOM_CUSTOMER_TABLE` 和 `SHOWROOM_PRIVATE_EVIDENCE_ROOT`；客群维度与销售复盘文件路径为可选配置。客户资料写入会先查重：唯一匹配时更新原记录，确认没有对应记录且身份资料足够时自动新建，存在多个候选或旧值冲突时停止并请人工确认。
-
-安装 Second Brain Digest Skill：
-
-```bash
-python3 portable_skill_manager.py install second-brain-digest
-python3 portable_skill_manager.py check second-brain-digest
-```
-
-使用时把 `SECOND_BRAIN_ROOT` 设置为自己的知识库根目录，并在根目录提供 `.AGENTS.md`。公开版只规定 `evidence/sources/`、`evidence/.intake/` 与 `evidence/.processing/` 的通用合同；项目、人物、方法和概念的实际目录由各自知识库规则决定。
-
-安装家具展厅咨询视频脚本 Skill：
-
-```bash
-python3 portable_skill_manager.py install write-showroom-acquisition-video-script
-python3 portable_skill_manager.py check write-showroom-acquisition-video-script
-```
-
-该 Skill 只在选题已经由人明确审核通过后编写脚本候选。它会给每个镜头标记制作等级，默认不搬动重家具，并为多人搬运或整件替换镜头提供低成本替代方案。它不执行拍摄、发布或广告投放，也不代表脚本已经验证能获客。
+旧的 `list`、`check`、`install <名称>` 命令继续可用。不写名称仍会选择全部注册 Skill；它是兼容行为，不是团队的安装要求。如果当前 Codex 尚未显示新 Skill，请重开任务或重启 Codex 后确认已发现。
 
 ## 更新已安装 Skill
 
+先检查源仓库是否有自己的改动；有改动时先比较并保留，不要直接拉取覆盖。确认工作区干净后：
+
 ```bash
+git status --short
 git pull --ff-only
+git rev-parse HEAD
+python3 portable_skill_manager.py validate
+python3 portable_skill_manager.py install five-level-ternary-thinking --dry-run
 python3 portable_skill_manager.py install five-level-ternary-thinking
 python3 portable_skill_manager.py check five-level-ternary-thinking
 ```
 
-安装器会比较整个 Skill 目录的 SHA-256 摘要。目标缺失时会安装；目标发生漂移时，会先在同一目录创建带 UTC 时间戳的备份，再写入仓库版本并读回验证。
+相同内容不重写；本工具上次安装的副本没有被改过时，可以备份后更新。已有副本来源不明，或本机做过修改时，默认保留并报冲突。先比较原文；明确选用仓库版本后，才加 `--replace-local`。此选项仍会备份，不能绕过符号链接、越界路径或源与目标重叠检查。每次只更新自己需要的名称。
 
-## 添加新的 Skill
+同一目标一次只运行一个安装器。脚本会在写入前重核内容，但没有跨进程锁；进程被强制结束或机器断电后，先检查目标和返回过的备份位置，再决定恢复或重试。
 
-1. 将完整 Skill 包放入 `skills/<skill-name>/`，其中必须包含 `SKILL.md`。
-2. 在 `portable-skill-registry.json` 中登记相对目录和安装位置。
-3. 使用 Skill Creator 的 `quick_validate.py` 校验格式。
-4. 执行 `python3 portable_skill_manager.py check <skill-name>` 验证注册表与安装状态。
-5. 提交前检查仓库中没有凭证、私有业务资料、个人数据或本机绝对路径。
+新备份放在 Skill 根目录之外的同级专用目录，避免被 Agent 当成重复 Skill；实际路径写在安装结果中。已有旧备份不自动迁移或删除。安装后读回失败会回滚本次写入。安装记录保存在 Skill 根目录的隐藏状态目录中，丢失时按未知副本保护。恢复旧版时，先保留当前副本，再把选定备份恢复到原位置并 `check`；不要删除唯一备份。原则文档的更新仍使用[文档同步提示词](docs/work-methods/sync-prompt.md)。
 
-## 权威边界
+<a id="添加新的-skill"></a>
 
-- 本仓库作为已登记公开 Skills 和 `docs/work-methods/` 通用文档的分发源。
-- Leo 的 Second Brain 中既有便携 Skills 仍由其原注册表管理；本仓库不会自动接管或复制那些 Skills。
-- 不要反向把某台电脑的安装副本当成权威源。
-- 当前仓库未声明开源许可证；公开可见与可克隆不自动授予再分发、修改或商用许可。
+## 维护与发布
+
+新增 Skill、改注册信息和发布前检查见[维护说明](docs/maintenance.md)。维护者只改仓库源文件，不把某台电脑的安装副本直接反向覆盖仓库。这里不自动接管其他知识库或注册表管理的 Skills。
+
+<a id="权威边界"></a>
+
+当前仓库未声明开源许可证；公开可见与可克隆不自动授予再分发、修改或商用许可。

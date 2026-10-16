@@ -72,6 +72,8 @@ def validate_node(node: Any, depth: int, path: str) -> int:
             f"{path}: level {depth} requires {expected_children} children, "
             f"found {len(children)}"
         )
+    # Omitted leaf children are accepted above; normalize them for rendering.
+    node["children"] = children
 
     if children:
         if not all(isinstance(child, dict) for child in children):

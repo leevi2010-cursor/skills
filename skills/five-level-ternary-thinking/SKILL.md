@@ -56,17 +56,17 @@ Turn one substantive question into an exact five-level ternary reasoning tree an
    - Do not write node IDs manually. The renderer assigns stable path numbers: root `0`, then `1`, `1.1`, `1.1.1`, and so on.
 7. Write for a high-school graduate. Prefer familiar words and short sentences. Define an unavoidable technical term in the same sentence. Make siblings distinct, complementary, and at the same abstraction level. Do not disguise synonyms as three answers. Ensure each child directly answers its parent in the active mode.
 8. Write the data object to a temporary JSON file using the host's approved file-editing mechanism.
-9. Resolve `scripts/render_tree.py` relative to this `SKILL.md`, then render and validate with its absolute path:
+9. Resolve `scripts/render_tree.py` relative to this `SKILL.md`. Choose an absolute output path in the current host's writable workspace, then render and validate with the script's absolute path. Do not assume `/workspace` exists on another computer:
 
 ```bash
 python3 <this-skill-directory>/scripts/render_tree.py \
   --input <absolute-input.json> \
-  --output /workspace/five-level-ternary-<short-slug>.html
+  --output <absolute-writable-output-directory>/five-level-ternary-<short-slug>.html
 ```
 
 10. Re-read the generated script block and run a JavaScript syntax check. Do not present an invalid visualization.
-11. Expose the validated HTML as a user-accessible standalone file. Use the active product's supported file-link or attachment mechanism; never give only a plain filesystem path. In ChatGPT Work mode, link the absolute rendered path with a `sandbox:` Markdown target. Keep the standalone file and inline visualization based on the same validated HTML output.
-12. Lead the final response with one concise conclusion or framing sentence. Then always attempt the inline visualization and always provide the standalone HTML link immediately below it:
+11. Expose the validated HTML as a user-accessible standalone file. Use the active product's supported file-link or attachment mechanism; never give only a plain filesystem path. In ChatGPT Work mode, use its supported `sandbox:` file link. In a local host such as Codex, use its supported clickable absolute-path file link. Keep the standalone file and inline visualization based on the same validated HTML output.
+12. Lead the final response with one concise conclusion or framing sentence. Then always attempt the inline visualization and always provide the standalone HTML link immediately below it. The following is a ChatGPT Work example only; replace `/workspace/...` with the actual rendered path, and adapt the visualization and file link to the active host:
 
 ```text
 <concise conclusion>

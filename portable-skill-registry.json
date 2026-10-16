@@ -10,7 +10,13 @@
         "五层三叉思考模型",
         "five-level ternary reasoning tree",
         "interactive numbered learning map"
-      ]
+      ],
+      "summary": "把复杂问题拆成五层三叉思考树，生成可交互的编号图。",
+      "when_to_use": "需要系统分析“是什么、为什么、怎么办”；简单查询或只要短文本时不必安装。",
+      "prerequisites": [
+        "Python 3.10+、实际可写的输出目录，以及能打开 HTML 的环境。"
+      ],
+      "version_policy": "content-sha256"
     },
     {
       "name": "second-brain-digest",
@@ -22,7 +28,15 @@
         "source-backed knowledge digestion",
         "duplicate-note convergence",
         "resumable semantic batches"
-      ]
+      ],
+      "summary": "把获授权的本地资料归档为可追溯来源，并更新最少的知识记录。",
+      "when_to_use": "需要整理自己的知识库、消化资料或合并重复笔记。",
+      "prerequisites": [
+        "明确设置 SECOND_BRAIN_ROOT，并先读该知识库根目录的 .AGENTS.md。",
+        "归档移动须有对应范围和计划的授权；特殊格式转换工具按需另配。",
+        "建议环境已有 jsonschema 以作完整模式校验；缺失时脚本退回内置合同检查。本仓库安装器不会安装它。"
+      ],
+      "version_policy": "content-sha256"
     },
     {
       "name": "analyze-showroom-sales-recording",
@@ -34,7 +48,15 @@
         "飞书妙记销售复盘",
         "客户接待五环节分析",
         "已有客户记录安全更新"
-      ]
+      ],
+      "summary": "从家具接待录音生成独立五环节复盘，另把客户事实查重后写入客户表。",
+      "when_to_use": "处理家具展厅销售录音、逐字稿或飞书妙记；需要确认客户、销售和说话人。",
+      "prerequisites": [
+        "先配置项目规则和私密目录；SHOWROOM_* 配置详见 SKILL.md 的“运行配置”。",
+        "飞书操作需要另备 lark-cli、lark-minutes/lark-doc/lark-wiki/lark-base Skills，以及获授权的身份和目标；本仓库不提供这些依赖。",
+        "本地音频转写脚本使用 Apple Silicon 的 MLX 路线；其他机器可提供已有逐字稿。从该 Skill 目录先运行 scripts/ensure_local_transcription.sh --check 检查；旧的无参数命令会联网安装依赖，只有获准安装时才运行。"
+      ],
+      "version_policy": "content-sha256"
     },
     {
       "name": "write-showroom-acquisition-video-script",
@@ -45,7 +67,43 @@
         "家具展厅到店获客信息流视频脚本",
         "已审核选题脚本",
         "低搬动成本镜头规划"
-      ]
+      ],
+      "summary": "把人工审核通过的具体展厅选题写成低搬动成本的视频脚本候选。",
+      "when_to_use": "选题和审核人已经明确，需要逐镜脚本与制作难度检查。",
+      "prerequisites": [
+        "先取得具体选题的人工通过结论；产品、素材和咨询承接信息按实际提供。",
+        "Python 3.10+ 运行自带验证器；拍摄、发布、投放分别按原授权执行。"
+      ],
+      "version_policy": "content-sha256"
+    }
+  ],
+  "documents": [
+    {
+      "name": "expression-principles",
+      "kind": "principle",
+      "title": "表达原则",
+      "version": "1.2",
+      "source": "docs/work-methods/expression-principles.md",
+      "when_to_use": "团队和 Agent 写给人看的说明、报告与建议时共同遵循。",
+      "sync": "read-reference"
+    },
+    {
+      "name": "decision-loop",
+      "kind": "method",
+      "title": "决策闭环",
+      "version": "1.5",
+      "source": "docs/work-methods/decision-loop.md",
+      "when_to_use": "需要作决定、比较办法或复盘结果时使用；目标与授权仍以原处为准。",
+      "sync": "read-reference"
+    },
+    {
+      "name": "sync-prompt",
+      "kind": "guide",
+      "title": "跨电脑同步提示词",
+      "version": "git",
+      "source": "docs/work-methods/sync-prompt.md",
+      "when_to_use": "需要将两份文档接入另一台电脑的 Codex 全局指引时使用。",
+      "sync": "read-reference"
     }
   ]
 }
