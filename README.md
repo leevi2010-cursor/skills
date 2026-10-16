@@ -2,6 +2,11 @@
 
 Leo 创建并公开分发的 AI Skills 集合。仓库中的 Skill 包是公开分发源；各电脑上的 `~/.codex/skills/` 只是安装副本。
 
+## 通用工作方法
+
+- [表达原则与决策闭环](docs/work-methods/README.md)：已定稿的通用文档和空白模板。
+- [其他电脑的 Codex 同步提示词](docs/work-methods/sync-prompt.md)：只同步文档与全局指引，不运行 Skill 安装器。
+
 ## 已收录 Skills
 
 | Skill | 用途 | 目录 |
@@ -72,7 +77,7 @@ python3 portable_skill_manager.py check five-level-ternary-thinking
 
 ## 权威边界
 
-- 本仓库只作为其中已登记公开 Skills 的分发源。
+- 本仓库作为已登记公开 Skills 和 `docs/work-methods/` 通用文档的分发源。
 - Leo 的 Second Brain 中既有便携 Skills 仍由其原注册表管理；本仓库不会自动接管或复制那些 Skills。
 - 不要反向把某台电脑的安装副本当成权威源。
 - 当前仓库未声明开源许可证；公开可见与可克隆不自动授予再分发、修改或商用许可。
