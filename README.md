@@ -4,6 +4,8 @@
 
 `portable-skill-registry.json` 是唯一分发目录；下面的目录由它生成。GitHub 中已发布的 commit 是同步来源，各电脑上的安装副本是使用副本。安装某个 Skill 不代表取得其所有外部操作的授权，仍须遵循任务和项目规则。
 
+使用 Codex 的插件管理界面时，可添加本仓库的[团队插件市场](#在-codex-中使用插件市场)。原有单个 Skill 安装方式继续保留。
+
 <a id="通用工作方法"></a>
 
 ## 先选需要的内容
@@ -37,7 +39,47 @@
 
 这段说明只约定本次读取。需要跨会话或跨电脑保留指引时，使用[原同步提示词](docs/work-methods/sync-prompt.md)：它先识别实际 `CODEX_HOME`、`AGENTS.override.md` 和项目覆盖规则，备份后只合并有标记的管理段，保留其他规则并读回。仓库安装器只管理 Skill，**不会复制原则文档，也不会改全局 `AGENTS.md`**。其他电脑和已打开的会话需要各自读取更新。
 
-## 在另一台电脑安装
+## 在 Codex 中使用插件市场
+
+市场名称是 **Leo 团队插件市场**（`leo-team`），首版提供一个 **Leo Skills** 合集插件（`leo-skills`），包含上表登记的 Skills。合集直接引用原 `skills/` 目录，不维护第二份正文；共同原则和工作方法仍是文档，不会因为安装插件而自动写入全局规则。
+
+这个仓库目前公开。该市场可以供团队内部使用，但不提供“仅内部成员可见”的访问控制。不要向这里上传凭证、客户资料或内部业务文件；需要限制阅读范围时，应另用经批准的私有仓库。本次没有新增许可证或改变仓库权限。
+
+在 Codex 的插件页面添加市场时，使用仓库地址：
+
+```text
+https://github.com/leevi2010-cursor/skills
+```
+
+同步后选择 **Leo 团队插件市场**，再按需安装 **Leo Skills**。添加市场只登记来源，不会自动安装或启用合集。合集安装会一起提供本仓库的 Skills；只需要其中一个时，仍可使用下方的单 Skill 安装器。
+
+也可用已支持插件市场命令的 Codex CLI：
+
+```bash
+codex plugin marketplace add leevi2010-cursor/skills --ref main
+codex plugin list --marketplace leo-team --available --json
+```
+
+确认需要整个合集后才执行：
+
+```bash
+codex plugin add leo-skills@leo-team
+```
+
+安装后新建对话，确认 Agent 能发现并读取所需 Skill。已有手工安装副本不会由本仓库删除或迁移；若出现同名工作流，应先确认选择了哪个来源，避免混用不同版本。插件不包含 Python、转写环境、飞书工具或账号授权，这些前提仍按上表分别准备。安装不代表已经取得写入客户表、移动资料、发布内容或其他外部操作的批准。
+
+刷新已登记的市场：
+
+```bash
+codex plugin marketplace upgrade leo-team
+codex plugin list --marketplace leo-team --available --json
+```
+
+刷新市场目录不等于已打开的 Agent 会话已加载新版本；还须在插件界面确认安装状态，并在新对话中核对。停止使用时，可先用 `codex plugin remove leo-skills@leo-team` 移除合集，再用 `codex plugin marketplace remove leo-team` 移除来源；原手工安装的 Skills 不受这两个命令管理。
+
+市场入口是 [`.agents/plugins/marketplace.json`](.agents/plugins/marketplace.json)，插件入口是 [`plugin.json`](plugin.json)。创建方式依据 [OpenAI 官方插件打包文档](https://developers.openai.com/plugins/build/plugins)。
+
+## 在另一台电脑安装单个 Skill
 
 需要 Git、Python 3.10+。下例选择一个 Skill，名称可换成上表中的任意一项；Windows 可将 `python3` 换成 `py`。
 

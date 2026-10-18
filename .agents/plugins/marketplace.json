@@ -1,0 +1,20 @@
+{
+  "name": "leo-team",
+  "interface": {
+    "displayName": "Leo 团队插件市场"
+  },
+  "plugins": [
+    {
+      "name": "leo-skills",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

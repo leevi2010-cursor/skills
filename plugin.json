@@ -1,0 +1,23 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "leo-skills",
+  "version": "0.1.0",
+  "description": "Leo 团队的可选工作流合集，直接使用本仓库登记的 Skills；安装不授予外部操作权限。",
+  "author": {
+    "name": "Leo"
+  },
+  "repository": "https://github.com/leevi2010-cursor/skills",
+  "homepage": "https://github.com/leevi2010-cursor/skills#在-codex-中使用插件市场",
+  "keywords": ["skills", "team-workflows", "knowledge", "showroom"],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Leo Skills",
+        "shortDescription": "思考分析、知识整理和家具展厅工作流",
+        "longDescription": "复用本仓库的 Skills，不包含凭证、私有业务资料或预配置的外部服务。各项工作仍按任务与项目授权执行。",
+        "developerName": "Leo",
+        "category": "Productivity"
+      }
+    }
+  }
+}
