@@ -10,6 +10,7 @@
 | Skill 内容与支持文件 | 原 `skills/<名称>/` 目录，保留 `agents/`、`scripts/`、`references/`、`assets/` 的有效引用 | 未单独编号时，用发布 commit 和完整目录 SHA-256；不要补造版本号 |
 | 用途、何时需要、前提 | `portable-skill-registry.json` 的原条目 | 与同次发布的内容一致 |
 | 安装和更新行为 | `portable_skill_manager.py` 与对应离线测试 | 同次发布 commit；兼容性变化必须写明 |
+| Codex 插件包与市场入口 | 根目录 `plugin.json`、`.agents/plugins/marketplace.json`；Skill 清单仍取原注册表 | 插件包版本在 `plugin.json`；包内容变化时递增，Skill 本体仍按 commit 和目录 SHA-256 核验 |
 
 新增 Skill 时创建 `skills/<名称>/SKILL.md`，登记 `name`、相对 `source`、原格式 `install_target`、`summary`、`when_to_use`、`prerequisites` 与 `version_policy`。Skill 全部按需选择，不因进入注册表就成为全员必装。`documents` 只提供文档路由，不交给 Skill 安装命令。
 
@@ -30,6 +31,8 @@ git diff
 ```
 
 再运行当前环境已有的 Skill Creator `quick_validate.py`，逐个验证所有 Skill。它不随本仓库分发；若环境没有，说明这项尚未完成，不临时安装依赖或假称通过。`validate` 验证分发目录，不等于每个 Skill 的业务效果都已验证。
+
+插件包必须保持与注册表一致，只从原 `skills/` 目录发现 Skill；不要把文档包装成会自动改全局规则的 Skill，也不要复制第二份正文。市场条目保持 `AVAILABLE`，不改成默认安装。发布插件元数据前，用支持插件命令的 Codex CLI 从仓库上下文只读列出市场和可用插件，核对名称、版本及包含内容；仅为检查，不安装合集、不连接账号或运行其中工作流。确需增加 MCP、自动执行钩子或默认安装策略时，先明确新增行为和授权，不沿用本次纯 Skills 包的批准。
 
 在临时目录用 `--skills-dir` 演练有改动的安装器，核对计划、读回、冲突保护、备份和回滚；不要为了测试改动真实安装目录。安装目标不能与整个发布仓库重叠，新备份不能位于 Skill 发现根目录中；原有旧备份保留，核实后再按用户选择处理。转写脚本的 `--check` 可用于只检查工具；无参数旧命令会尝试安装，发布检查不运行它。不要运行真实飞书写入、客户操作或私人资料归档来测试仓库整理。
 
