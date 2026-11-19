@@ -28,6 +28,7 @@
 | [`second-brain-digest`](skills/second-brain-digest/SKILL.md) | 把获授权的本地资料归档为可追溯来源，并更新最少的知识记录。 需要整理自己的知识库、消化资料或合并重复笔记。 | 明确设置 SECOND_BRAIN_ROOT，并先读该知识库根目录的 .AGENTS.md。<br>归档移动须有对应范围和计划的授权；特殊格式转换工具按需另配。<br>建议环境已有 jsonschema 以作完整模式校验；缺失时脚本退回内置合同检查。本仓库安装器不会安装它。 |
 | [`analyze-showroom-sales-recording`](skills/analyze-showroom-sales-recording/SKILL.md) | 从家具接待录音生成独立五环节复盘，另把客户事实查重后写入客户表。 处理家具展厅销售录音、逐字稿或飞书妙记；需要确认客户、销售和说话人。 | 先配置项目规则和私密目录；SHOWROOM_* 配置详见 SKILL.md 的“运行配置”。<br>飞书操作需要另备 lark-cli、lark-minutes/lark-doc/lark-wiki/lark-base Skills，以及获授权的身份和目标；本仓库不提供这些依赖。<br>本地音频转写脚本使用 Apple Silicon 的 MLX 路线；其他机器可提供已有逐字稿。从该 Skill 目录先运行 scripts/ensure_local_transcription.sh --check 检查；旧的无参数命令会联网安装依赖，只有获准安装时才运行。 |
 | [`write-showroom-acquisition-video-script`](skills/write-showroom-acquisition-video-script/SKILL.md) | 把人工审核通过的具体展厅选题写成低搬动成本的视频脚本候选。 选题和审核人已经明确，需要逐镜脚本与制作难度检查。 | 先取得具体选题的人工通过结论；产品、素材和咨询承接信息按实际提供。<br>Python 3.10+ 运行自带验证器；拍摄、发布、投放分别按原授权执行。 |
+| [`editorial-diagram-design`](skills/editorial-diagram-design/SKILL.md) | 用编辑式构图制作可审阅、可下钻的 HTML/SVG 关系图。 需要分清目标支撑、约束、候选与已确认关系；不是单纯的目录或统计图。 | 核对节点与关系的依据；有可写的输出位置与可打开 HTML 的浏览器。无需安装第三方制图工具。 |
 
 <!-- END REGISTRY CATALOG -->
 

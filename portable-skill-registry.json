@@ -75,6 +75,23 @@
         "Python 3.10+ 运行自带验证器；拍摄、发布、投放分别按原授权执行。"
       ],
       "version_policy": "content-sha256"
+    },
+    {
+      "name": "editorial-diagram-design",
+      "source": "skills/editorial-diagram-design",
+      "install_target": "~/.codex/skills/editorial-diagram-design",
+      "authority_note": "public-github-skills",
+      "required_for": [
+        "目标关系图",
+        "editorial relationship diagram",
+        "可下钻的 SVG 总览"
+      ],
+      "summary": "用编辑式构图制作可审阅、可下钻的 HTML/SVG 关系图。",
+      "when_to_use": "需要分清目标支撑、约束、候选与已确认关系；不是单纯的目录或统计图。",
+      "prerequisites": [
+        "核对节点与关系的依据；有可写的输出位置与可打开 HTML 的浏览器。无需安装第三方制图工具。"
+      ],
+      "version_policy": "content-sha256"
     }
   ],
   "documents": [
