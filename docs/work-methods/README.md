@@ -4,7 +4,7 @@
 
 - [Agent 工作方法](agent-work-methods.md)：v3.0（总纲、六步工作流、多 Agent 分工与四层边界）
 - [表达原则](expression-principles.md)：v2.2（五大写作红线、对话与客户回复规范、好坏对照示例与 5 秒审核清单）
-- [任务与卡片管理规范](task-and-card-standards.md)：v2.0（目标/计划/卡片/日志标准模板与状态纪律）
+- [任务与卡片管理规范](task-and-card-standards.md)：v2.1（目标/计划/卡片/日志标准模板、状态纪律与防口径打架 5 条硬规则）
 - [决策闭环](decision-loop.md)：v1.5（五步决策流程、目标底线模板与每日复盘）
 - [团队 Codex 同步与学习提示词](sync-prompt.md)
 

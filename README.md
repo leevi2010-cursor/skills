@@ -16,7 +16,7 @@
 | --- | --- | --- |
 | 共同原则 | [Agent 工作方法](docs/work-methods/agent-work-methods.md) · v3.0 | 团队和 Agent 开展协作、拆分工作与把关质量时的通用总纲。 |
 | 共同原则 | [表达原则](docs/work-methods/expression-principles.md) · v2.2 | 团队和 Agent 写报告、文档、任务卡片、对话框回复与客户消息时共同遵循。 |
-| 工作方法 | [任务与卡片管理规范](docs/work-methods/task-and-card-standards.md) · v2.0 | 维护目标、计划、行动任务卡片与工作日志时使用。 |
+| 工作方法 | [任务与卡片管理规范](docs/work-methods/task-and-card-standards.md) · v2.1 | 维护目标、计划、行动任务卡片、防口径冲突与工作日志时使用。 |
 | 工作方法 | [决策闭环](docs/work-methods/decision-loop.md) · v1.5 | 需要作决定、比较办法或复盘结果时使用；目标与授权仍以原处为准。 |
 | 同步说明 | [跨电脑同步提示词](docs/work-methods/sync-prompt.md) · 随仓库 commit | 需要将通用工作方法接入团队成员的 Codex 全局指引时使用。 |
 
@@ -38,7 +38,7 @@
 
 把这段话交给 Agent 即可开始，文档无需安装成 Skill：
 
-> 请读取这个仓库的 README 和注册表，记录实际 commit。先完整读 Agent 工作方法 v3.0、表达原则 v2.2 与任务与卡片管理规范 v2.0；遇到决策或复盘时再读决策闭环 v1.5，并按其适用范围执行。根据当前任务选择需要的 Skill，先说明前提和安装计划。不自动安装全部 Skill，不覆盖本机自定义规则；遇到不明冲突先列出冲突。
+> 请读取这个仓库的 README 和注册表，记录实际 commit。先完整读 Agent 工作方法 v3.0、表达原则 v2.2 与任务与卡片管理规范 v2.1；遇到决策或复盘时再读决策闭环 v1.5，并按其适用范围执行。根据当前任务选择需要的 Skill，先说明前提和安装计划。不自动安装全部 Skill，不覆盖本机自定义规则；遇到不明冲突先列出冲突。
 
 这段说明只约定本次读取。需要跨会话或跨电脑保留指引时，使用[原同步提示词](docs/work-methods/sync-prompt.md)：它先识别实际 `CODEX_HOME`、`AGENTS.override.md` 和项目覆盖规则，备份后只合并有标记的管理段，保留其他规则并读回。仓库安装器只管理 Skill，**不会复制原则文档，也不会改全局 `AGENTS.md`**。其他电脑和已打开的会话需要各自读取更新。
 

@@ -117,9 +117,9 @@
       "name": "task-and-card-standards",
       "kind": "method",
       "title": "任务与卡片管理规范",
-      "version": "2.0",
+      "version": "2.1",
       "source": "docs/work-methods/task-and-card-standards.md",
-      "when_to_use": "维护目标、计划、行动任务卡片与工作日志时使用。",
+      "when_to_use": "维护目标、计划、行动任务卡片、防口径冲突与工作日志时使用。",
       "sync": "read-reference"
     },
     {
