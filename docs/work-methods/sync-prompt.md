@@ -1,17 +1,30 @@
-# 在另一台电脑同步到 Codex
+# 团队 Codex 同步与学习提示词
 
-把下面这段提示词交给那台电脑上的 Codex。它只同步文档和全局指引，不安装新 Skill，也不运行仓库脚本。
-
----
-
-请将 https://github.com/leevi2010-cursor/skills 的 main 分支中 docs/work-methods/expression-principles.md和 docs/work-methods/decision-loop.md同步为这台电脑的 Codex 全局工作指引。
-
-1. 先识别操作系统、实际用户主目录和当前 Codex 使用的 CODEX_HOME；未设置时使用用户主目录下的 .codex。分别检查 AGENTS.md 和 AGENTS.override.md，说明哪一个实际生效；也检查当前项目的覆盖规则。不要把一台机器的绝对路径搬到另一台。
-2. 从上述仓库读取 main 的实际 commit SHA，然后固定在该 SHA 读取 docs/work-methods/README.md 和这两个文件，核对两份正文版本与同一 commit 的 README 一致。只读取和保存文本，不执行下载脚本，不运行 portable_skill_manager，不安装软件，不改仓库或上传本机资料。若仓库不可读、版本不符或无法确定实际生效目录，停下说明，不编造成功。
-3. 将两份原文保存到实际 CODEX_HOME 下的 work-methods/，记录仓库 URL、实际 commit SHA、版本和文件校验值。已有副本先备份并比较；保留未归入本次管理范围的文件。GitHub 是经授权的通用发布副本，不另建业务目标，不复制私人目标、经营数据、日志或任务表。
-4. 先读完整的现有全局指引并备份，只合并一个由 <!-- BEGIN WORK-METHODS --> 与 <!-- END WORK-METHODS --> 标记的管理段；再次同步只替换该段，保留所有其他规则，不整文件覆盖。管理段明确要求执行任务前阅读上述两份本地文档并按其适用范围执行，记录两份版本和 commit。若实际生效的是非空 AGENTS.override.md，就将唯一管理段合并到该文件；不要删除或改名 override 来强行生效。若两文件中发现旧管理段，先比较并说明迁移方案，只清理确认属于本次同步的重复段；遇到冲突或无法辨认的旧规则先问我。默认不改项目级规则、权限和审批设置。
-5. 写完重新读取：确认两份文档与固定 commit 的原文一致、管理段恰好一份、其他规则未变；报告实际路径、版本、commit、校验结果及会影响生效的覆盖规则。不要仅凭文件写入成功就声称已生效。请在本会话显式阅读并应用这两份文档；其他已打开的旧会话需要逐个明确告知读取更新，或重新启动会话后确认已加载。
+把下面这段提示词直接发给团队成员的 Codex（支持 macOS / Windows / Linux）。它只同步通用工作原则和表达规范到全局指引，**不安装新 Skill，也不运行仓库安装脚本**，并会现场演练检查表达能力是否达标。
 
 ---
 
-说明：Codex 的全局目录、override 优先级和启动时加载行为见 [OpenAI 官方说明](https://learn.chatgpt.com/docs/agent-configuration/agents-md)。本提示词不会让其他电脑或已打开会话自动同步；需要在目标电脑执行。
+```text
+请将 https://github.com/leevi2010-cursor/skills 仓库 main 分支下的 4 份最新通用工作方法同步为我这台电脑的 Codex 全局工作指引，并立即按新标准完成一次表达校准：
+
+- docs/work-methods/agent-work-methods.md（v3.0）
+- docs/work-methods/expression-principles.md（v2.2）
+- docs/work-methods/task-and-card-standards.md（v2.0）
+- docs/work-methods/decision-loop.md（v1.5）
+
+请严格按以下步骤执行：
+1. 识别当前操作系统、用户主目录及实际生效的 CODEX_HOME（未设置时默认为用户主目录下的 .codex）。检查 AGENTS.md、AGENTS.override.md 及当前项目是否存在覆盖规则，说明哪一份实际生效。不跨机器照搬绝对路径。
+2. 读取上述仓库 main 分支的最新 commit SHA，并固定在该 commit 读取 docs/work-methods/README.md 与上述 4 份正文，核对版本号与 README 一致。只读取和保存纯文本，不运行 portable_skill_manager，不安装软件或 Skill，不修改远程仓库，不上传本机资料。
+3. 将 4 份原文保存到实际 CODEX_HOME/work-methods/ 目录，并生成或更新 sync-receipt.json 记录仓库 URL、commit SHA、版本号与文件 SHA-256。已有同名旧副本先备份再替换，保留其他未纳入本次范围的文件。
+4. 先完整读取现有全局指引并备份，仅合并/更新一个由 <!-- BEGIN WORK-METHODS --> 与 <!-- END WORK-METHODS --> 包裹的管理段（不要整文件覆盖，保留我原有的其他规则）。管理段中写明：
+   - 记录 4 份文档的本地路径、版本号与 commit SHA；
+   - 凡写报告、汇报、文档、计划、任务卡片，以及**对话框回复和代拟/回复客户消息**，必须遵守《表达原则 v2.2》五大红线与对话/客户规范：结论前置且有增量、肯定句主表达且免责下沉、精简不丢核心数字（任务卡结论 ≤40 字、下一步 ≤30 字、步骤标准 ≤50 字、计划定位 ≤60 字）、说人话且复核点可触发、证据进日志；回复客户时先接住关切、手机一屏易读、严禁内部黑话与越权承诺；
+   - 凡维护目标/计划/任务卡，按《任务与卡片管理规范 v2.0》严格区分四层边界，需负责人拍板项一律标「待批准」。
+   若实际生效的是非空 AGENTS.override.md，则写入该文件；遇到冲突或无法辨认的旧规则先列出并询问我。
+5. 写后读回校验：核对 4 份本地文件与固定 commit 原文一致、全局管理段恰好 1 份且原规则未丢。
+6. 现场表达校准：向我汇报本次同步结果时，直接用新版《表达原则 v2.2》来写——第一句先给结论，不超过 3 个加粗小标题要点，保留实际路径/版本号/commit 前 7 位，不堆过程流水与否定式免责。同时提醒我：已有旧会话需要重新加载或新开会话才会生效。
+```
+
+---
+
+说明：Codex 的全局目录、override 优先级和启动时加载行为见 [OpenAI 官方说明](https://learn.chatgpt.com/docs/agent-configuration/agents-md)。本提示词不会让其他电脑或已打开会话自动同步，需要在目标电脑执行。

@@ -96,12 +96,30 @@
   ],
   "documents": [
     {
+      "name": "agent-work-methods",
+      "kind": "principle",
+      "title": "Agent 工作方法",
+      "version": "3.0",
+      "source": "docs/work-methods/agent-work-methods.md",
+      "when_to_use": "团队和 Agent 开展协作、拆分工作与把关质量时的通用总纲。",
+      "sync": "read-reference"
+    },
+    {
       "name": "expression-principles",
       "kind": "principle",
       "title": "表达原则",
-      "version": "1.2",
+      "version": "2.2",
       "source": "docs/work-methods/expression-principles.md",
-      "when_to_use": "团队和 Agent 写给人看的说明、报告与建议时共同遵循。",
+      "when_to_use": "团队和 Agent 写报告、文档、任务卡片、对话框回复与客户消息时共同遵循。",
+      "sync": "read-reference"
+    },
+    {
+      "name": "task-and-card-standards",
+      "kind": "method",
+      "title": "任务与卡片管理规范",
+      "version": "2.0",
+      "source": "docs/work-methods/task-and-card-standards.md",
+      "when_to_use": "维护目标、计划、行动任务卡片与工作日志时使用。",
       "sync": "read-reference"
     },
     {
@@ -119,7 +137,7 @@
       "title": "跨电脑同步提示词",
       "version": "git",
       "source": "docs/work-methods/sync-prompt.md",
-      "when_to_use": "需要将两份文档接入另一台电脑的 Codex 全局指引时使用。",
+      "when_to_use": "需要将通用工作方法接入团队成员的 Codex 全局指引时使用。",
       "sync": "read-reference"
     }
   ]
